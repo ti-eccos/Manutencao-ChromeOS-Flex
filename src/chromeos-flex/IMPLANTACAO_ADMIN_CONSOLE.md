@@ -37,7 +37,7 @@ Crie `docs/chromeos-flex/updates.xml` usando o ID gerado pela chave de assinatur
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="ID_DA_EXTENSAO">
-    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.3" />
+    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.4" />
   </app>
 </gupdate>
 ```
