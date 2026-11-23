@@ -1,6 +1,6 @@
 # Kit ECCOS · ChromeOS Flex
 
-Extensão de inventário automático para dispositivos ChromeOS Flex gerenciados pela equipe de tecnologia do Colégio ECCOS.
+Extensão de inventário automático para os notebooks com ChromeOS Flex usados pela equipe de tecnologia do Colégio ECCOS.
 
 ## Distribuição
 
@@ -17,7 +17,7 @@ No repositório, abra **Settings > Pages**, escolha **Deploy from a branch**, se
 
 ## Instalar pela política da escola
 
-No Admin Console, abra **Dispositivos > Chrome > Apps e extensões > Usuários e navegadores**, selecione a unidade organizacional de tecnologia e adicione a extensão pelo ID e pela URL personalizada do `updates.xml`. Defina a política como **Forçar instalação**. Ative **Enterprise Hardware Platform API** nas configurações dos dispositivos para disponibilizar fabricante e modelo.
+No Admin Console, abra **Dispositivos > Chrome > Apps e extensões > Usuários e navegadores**, selecione a unidade organizacional da equipe de tecnologia e adicione a extensão pelo ID e pela URL personalizada do `updates.xml`. Defina a política como **Forçar instalação**. A extensão coleta apenas os dados locais que o ChromeOS disponibiliza para ela; não coleta fabricante, modelo ou número de série.
 
 ## Assinatura e atualizações
 
@@ -25,5 +25,4 @@ A chave privada de assinatura `.pem` não faz parte deste repositório. Guarde-a
 
 ## Privacidade
 
-O site distribui somente o código e o instalador da extensão. A extensão coleta informações localmente e não envia relatórios ou dados do equipamento para este repositório ou para o Pages. Qualquer pessoa pode baixar o código e o pacote; a instalação gerenciada e o acesso às APIs corporativas continuam sob as políticas do colégio.
-
+O site distribui somente o código e o instalador da extensão. A extensão coleta informações localmente e não envia relatórios ou dados do equipamento para este repositório ou para o Pages. Qualquer pessoa pode baixar o código e o pacote; a instalação é controlada pela política de usuários e navegadores do colégio.

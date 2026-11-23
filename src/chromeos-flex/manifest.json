@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Kit ECCOS | ChromeOS Flex",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Coleta automática de informações disponíveis do dispositivo ChromeOS Flex para a equipe de tecnologia ECCOS.",
   "update_url": "https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/updates.xml",
   "permissions": [

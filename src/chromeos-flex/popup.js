@@ -57,14 +57,22 @@
       used: Number.isFinite(totalRam) && Number.isFinite(availableRam) && totalRam >= availableRam ? totalRam - availableRam : null
     };
     const units = Array.isArray(storage) ? storage : [];
-    const fixed = units.filter(unit => unit.type === 'fixed');
-    collected.storage = await Promise.all(fixed.map(async unit => {
+    // Em alguns modelos com ChromeOS Flex, o sistema classifica o armazenamento
+    // interno como "unknown". Incluímos esse tipo e excluímos apenas mídias
+    // removíveis, como pen drives.
+    const reportableUnits = units.filter(unit => unit.type !== 'removable');
+    collected.storage = await Promise.all(reportableUnits.map(async unit => {
       let free = null;
       if (typeof chrome.system.storage.getAvailableCapacity === 'function') {
         const capacity = await runOptional(() => chrome.system.storage.getAvailableCapacity(unit.id));
         if (capacity && Number.isFinite(Number(capacity.availableCapacity))) free = Number(capacity.availableCapacity);
       }
-      return { name: unit.name || 'Armazenamento interno', type: unit.type, capacity: Number(unit.capacity) || null, free };
+      const typeLabel = unit.type === 'fixed' ? 'Fixo' : unit.type === 'unknown' ? 'Não identificado pelo ChromeOS' : 'Não informado';
+      const defaultName = unit.type === 'fixed' ? 'Armazenamento interno' : 'Unidade de armazenamento';
+      const total = Number(unit.capacity);
+      const capacity = Number.isFinite(total) && total > 0 ? total : null;
+      const used = capacity !== null && free !== null && capacity >= free ? capacity - free : null;
+      return { name: unit.name || defaultName, type: unit.type || 'unknown', typeLabel, capacity, used, free };
     }));
     collected.chromeos = {
       version: osMatch?.[1] || null,
@@ -96,9 +104,9 @@
 
     const storageRoot = $('storageFields');
     if (!collected.storage.length) {
-      storageRoot.innerHTML = '<p class="storage-empty">Nenhuma unidade fixa foi disponibilizada pela API do Chrome.</p>';
+      storageRoot.innerHTML = '<p class="storage-empty">O ChromeOS não disponibilizou unidades de armazenamento para a extensão.</p>';
     } else {
-      storageRoot.innerHTML = collected.storage.map(disk => `<article class="storage-item"><strong>${escapeHtml(disk.name)}</strong><span>Tipo: ${escapeHtml(disk.type)}<br>Total: ${escapeHtml(showValue(bytes(disk.capacity)))}<br>Espaço livre: ${escapeHtml(disk.free === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.free))}</span></article>`).join('');
+      storageRoot.innerHTML = collected.storage.map(disk => `<article class="storage-item"><strong>${escapeHtml(disk.name)}</strong><span>Tipo: ${escapeHtml(disk.typeLabel)}<br>Total: ${escapeHtml(showValue(bytes(disk.capacity)))}<br>Em uso: ${escapeHtml(disk.used === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.used))}<br>Livre: ${escapeHtml(disk.free === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.free))}</span></article>`).join('');
     }
 
     const hardwareAvailable = Boolean(cpu.model || memory.total || collected.storage.length);
@@ -129,11 +137,12 @@
     if (collected.storage.length) {
       collected.storage.forEach((disk, index) => {
         const item = `Armazenamento ${index + 1} — ${disk.name}`;
-        rows.push(['Armazenamento', `${item} / tipo`, disk.type]);
+        rows.push(['Armazenamento', `${item} / tipo`, disk.typeLabel]);
         rows.push(['Armazenamento', `${item} / total`, bytes(disk.capacity)]);
+        rows.push(['Armazenamento', `${item} / em uso`, disk.used === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.used)]);
         rows.push(['Armazenamento', `${item} / livre`, disk.free === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.free)]);
       });
-    } else rows.push(['Armazenamento', 'Unidades fixas', 'Não disponibilizadas pela API do Chrome']);
+    } else rows.push(['Armazenamento', 'Unidades disponibilizadas', 'Nenhuma unidade foi disponibilizada pela API do Chrome']);
     rows.push(['Diagnóstico', 'Bateria, conectividade e verificações', 'Use Configurações > Sobre o ChromeOS > Diagnóstico. Resultados não expostos automaticamente pela API local.']);
     return rows.map(row => [row[0], row[1], row[2] === undefined || row[2] === null || row[2] === '' ? 'Não disponibilizado pelo ChromeOS ou pela política' : String(row[2])]);
   }

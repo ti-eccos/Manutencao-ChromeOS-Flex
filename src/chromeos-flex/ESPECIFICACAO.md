@@ -15,7 +15,7 @@ Coletar automaticamente informações expostas pelas APIs oficiais do ChromeOS e
 - Versão do ChromeOS Flex e do Chrome.
 - CPU, arquitetura, quantidade de processadores lógicos e sensores de temperatura expostos.
 - Total de RAM e memória disponível/em uso.
-- Unidades fixas detectadas, tipo e capacidade total. Capacidade livre somente quando a API estiver disponível.
+- Unidades fixas ou classificadas como não identificadas pelo ChromeOS, com tipo e capacidade total. Mídias removíveis são excluídas. Espaço usado e livre só são calculados quando a API de capacidade livre está disponível.
 - PDF via impressão do Chrome, XLSX e Markdown baixados localmente.
 
 ## Privacidade e limites

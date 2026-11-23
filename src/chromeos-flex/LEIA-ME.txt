@@ -6,7 +6,7 @@ DADOS COLETADOS
 
 - CPU: modelo, arquitetura, núcleos lógicos e temperaturas reportadas, quando disponíveis.
 - Memória física: total, em uso e disponível.
-- Armazenamento interno: unidades fixas, tipo e capacidade total. O espaço livre depende de a versão do Chrome disponibilizar essa API.
+- Armazenamento: unidades fixas ou classificadas como não identificadas pelo ChromeOS, com capacidade total; mídias removíveis são excluídas. Espaço usado e livre dependem de a versão do Chrome disponibilizar essa API.
 - ChromeOS Flex e versão do navegador.
 
 INSTALAÇÃO PELO ADMIN CONSOLE
