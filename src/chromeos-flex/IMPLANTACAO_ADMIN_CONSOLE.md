@@ -24,7 +24,8 @@ O Pages tem limites de uso documentados (site até 1 GB e limite flexível de ba
 2. Selecione **Compactar extensão** e escolha a pasta da extensão ECCOS.
 3. Na primeira compactação, o Chrome criará um arquivo `.crx` e uma chave privada `.pem`. Guarde o `.pem` sob custódia da equipe de tecnologia, com cópia de segurança controlada. **Nunca envie o `.pem` ao GitHub, ao pen drive de distribuição ou ao repositório.**
 4. Anote o ID de 32 caracteres mostrado em `chrome://extensions`.
-5. Copie somente o `.crx` para `docs/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx`.
+5. Reassine o `.crx` gerado pelo Chrome com o helper `Ferramentas/assinar-crx3.js`, usando a mesma chave `.pem` e o ID anotado. Isso gera a prova RSA-PSS exigida no pacote CRX3.
+6. Copie o CRX resultante para `docs/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx`.
 
 O endereço do repositório deve ser fixado antes da primeira assinatura/publicação. Para atualizações, aumente a versão no `manifest.json`, compacte usando a mesma chave `.pem` e atualize o XML. Uma nova chave cria outro ID e interrompe a continuidade das atualizações.
 
@@ -36,7 +37,7 @@ Crie `docs/chromeos-flex/updates.xml` usando o ID gerado pela chave de assinatur
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="ID_DA_EXTENSAO">
-    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.0" />
+    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.1" />
   </app>
 </gupdate>
 ```
@@ -64,6 +65,7 @@ Publique `updates.xml` e o `.crx` no Pages. A URL do XML precisa abrir diretamen
 
 - O repositório e os arquivos servidos pelo Pages são públicos no plano GitHub Free. Isso expõe o código e o instalador, não os inventários: os relatórios são gerados localmente e a extensão não os envia ao site.
 - Nunca publique a chave `.pem`, relatórios de inventário, número de série de equipamentos ou credenciais.
+- Não valide o pacote abrindo o link `.crx` diretamente. A instalação deve ocorrer pela política gerenciada configurada no Admin Console.
 - A política do Admin Console restringe a instalação gerenciada à unidade organizacional da equipe; APIs corporativas exigem instalação por política.
 - Valide após a primeira publicação que o Pages serve o `.crx` com tipo MIME `application/x-chrome-extension` e que a URL do XML retorna o arquivo diretamente.
 - Saúde da bateria, SMART e alguns dados de espaço livre não são expostos em todas as versões do ChromeOS.
