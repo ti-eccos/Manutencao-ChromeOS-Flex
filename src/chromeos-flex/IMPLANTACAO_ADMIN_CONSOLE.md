@@ -37,7 +37,7 @@ Crie `docs/chromeos-flex/updates.xml` usando o ID gerado pela chave de assinatur
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="ID_DA_EXTENSAO">
-    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.4" />
+    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.5" />
   </app>
 </gupdate>
 ```
@@ -57,7 +57,7 @@ Publique `updates.xml` e o `.crx` no Pages. A URL do XML precisa abrir diretamen
 ## 5. Confirmar e atualizar
 
 - Aguarde a sincronização da política nos notebooks e confirme que a extensão aparece no Chrome.
-- Abra o ícone e confira os dados disponibilizados. Gere um relatório de teste e guarde-o no pen drive autorizado.
+- Clique no ícone da extensão para abrir o inventário em uma guia própria. Confira os dados disponibilizados, gere um relatório de teste e guarde-o no pen drive autorizado.
 - Para cada atualização: incremente `version`, compacte novamente com o mesmo `.pem`, substitua o `.crx`, atualize a versão no `updates.xml` e publique as mudanças no Pages.
 - Depois de publicar, use a opção de atualizar extensões em `chrome://extensions` durante a validação ou aguarde a checagem automática.
 

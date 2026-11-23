@@ -18,7 +18,7 @@ Siga o passo a passo em IMPLANTACAO_ADMIN_CONSOLE.md. Fabricante/modelo exigem t
 
 USO
 
-1. Abra o ícone da extensão no ChromeOS Flex. A coleta começa automaticamente.
+1. Clique no ícone da extensão no ChromeOS Flex para abrir o inventário em uma guia. A coleta começa automaticamente.
 2. Use o botão de atualização para coletar novamente.
 3. Salve em PDF, XLSX ou Markdown. O PDF usa a impressão do Chrome; os outros formatos são baixados pelo navegador.
 4. Mova os relatórios para a pasta autorizada do USB. A extensão não envia os dados pela internet.

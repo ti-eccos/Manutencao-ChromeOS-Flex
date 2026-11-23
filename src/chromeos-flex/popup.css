@@ -13,6 +13,7 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; width: min(780px, 100vw); min-height: 520px; max-height: 760px; overflow-y: auto; background: var(--canvas); color: var(--ink); }
+.full-page { width: min(1120px, 100vw); min-height: 100vh; max-height: none; margin: 0 auto; }
 button { font: inherit; cursor: pointer; }
 button:focus-visible { outline: 3px solid #83b9e3; outline-offset: 2px; }
 .topbar { height: 62px; padding: 0 18px; display: flex; align-items: center; gap: 11px; background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -22,6 +23,7 @@ button:focus-visible { outline: 3px solid #83b9e3; outline-offset: 2px; }
 .brand-copy span { color: var(--muted); font-size: 10px; }
 .icon-button { margin-left: auto; border: 1px solid var(--line); background: white; color: var(--blue); width: 34px; height: 34px; border-radius: 8px; font-size: 20px; }
 main { padding: 20px; }
+.full-page main { padding: 24px; }
 .summary { min-height: 81px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 15px; }
 .eyebrow { color: var(--blue); font-size: 10px; font-weight: 750; }
 h1 { margin: 5px 0 4px; color: var(--navy); font-size: 20px; line-height: 1.18; letter-spacing: -.025em; }

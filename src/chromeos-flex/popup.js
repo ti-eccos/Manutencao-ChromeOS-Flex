@@ -1,6 +1,10 @@
 (() => {
   'use strict';
 
+  if (new URLSearchParams(location.search).get('view') === 'tab') {
+    document.body.classList.add('full-page');
+  }
+
   const collected = { generatedAt: new Date(), device: {}, cpu: {}, memory: {}, storage: [], chromeos: {} };
   const $ = id => document.getElementById(id);
   const showValue = value => value === undefined || value === null || value === '' ? 'Não disponibilizado pelo ChromeOS ou pela política' : String(value);
