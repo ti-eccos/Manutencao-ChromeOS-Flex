@@ -62,12 +62,7 @@ function main() {
     signedHeaderData,
     zip,
   ]);
-  const pssOptions = {
-    key: privateKey,
-    padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-    saltLength: 32,
-  };
-  const signature = crypto.sign('sha256', signedInput, pssOptions);
+  const signature = crypto.sign('sha256', signedInput, privateKey);
   const proof = Buffer.concat([field(1, publicKey), field(2, signature)]);
   const header = Buffer.concat([field(2, proof), field(10000, signedHeaderData)]);
   const output = Buffer.concat([
@@ -81,11 +76,10 @@ function main() {
   fs.writeFileSync(outputPath, output);
 
   const publicKeyObject = crypto.createPublicKey({ key: publicKey, format: 'der', type: 'spki' });
-  if (!crypto.verify('sha256', signedInput, { ...pssOptions, key: publicKeyObject }, signature)) {
+  if (!crypto.verify('sha256', signedInput, publicKeyObject, signature)) {
     throw new Error('A verificação local da assinatura falhou.');
   }
   process.stdout.write(`CRX3 assinado; ID ${actualId}; ${output.length} bytes.\n`);
 }
 
 main();
-
