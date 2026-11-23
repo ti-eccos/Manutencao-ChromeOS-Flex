@@ -13,7 +13,7 @@ Coletar automaticamente informações expostas pelas APIs oficiais do ChromeOS e
 
 ## Dados coletados localmente
 
-- Fabricante, modelo, número de série e hostname quando o ChromeOS liberar as APIs corporativas.
+- Fabricante, modelo e número de série quando o ChromeOS liberar as APIs corporativas.
 - Versão do ChromeOS Flex e do Chrome.
 - CPU, arquitetura, quantidade de processadores lógicos e sensores de temperatura expostos.
 - Total de RAM e memória disponível/em uso.

@@ -37,7 +37,7 @@ Crie `docs/chromeos-flex/updates.xml` usando o ID gerado pela chave de assinatur
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="ID_DA_EXTENSAO">
-    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.5" />
+    <updatecheck codebase="https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/Kit_ECCOS_ChromeOS_Flex.crx" version="0.2.6" />
   </app>
 </gupdate>
 ```
@@ -52,7 +52,7 @@ Publique `updates.xml` e o `.crx` no Pages. A URL do XML precisa abrir diretamen
 4. Informe o ID da extensão, selecione **De um URL personalizado** e informe `https://ti-eccos.github.io/Manutencao-ChromeOS-Flex/chromeos-flex/updates.xml`.
 5. Na política de instalação, escolha **Forçar instalação** e salve.
 6. Na unidade organizacional dos dispositivos, habilite **Enterprise Hardware Platform API** em **Dispositivos > Chrome > Configurações > Dispositivo** para disponibilizar fabricante e modelo.
-7. Confirme que os dispositivos Flex estão inscritos no gerenciamento escolar e que os técnicos entram com contas gerenciadas e afiliadas.
+7. Para obter fabricante, modelo e número de série, cada dispositivo Flex precisa estar inscrito no gerenciamento escolar e o técnico deve entrar com conta afiliada à mesma organização. Em escola, confirme a licença ChromeOS Education Upgrade por dispositivo. Dispositivos já usados sem inscrição podem precisar ser apagados antes do enrollment; faça backup antes de qualquer reset.
 
 ## 5. Confirmar e atualizar
 

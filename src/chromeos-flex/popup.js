@@ -41,10 +41,7 @@
     setProgress(62, 'Identificando o dispositivo gerenciado…');
 
     const attrApi = chrome.enterprise?.deviceAttributes;
-    const [serial, hostname] = await Promise.all([
-      runOptional(() => attrApi?.getDeviceSerialNumber()),
-      runOptional(() => attrApi?.getDeviceHostname())
-    ]);
+    const serial = await runOptional(() => attrApi?.getDeviceSerialNumber());
     setProgress(88, 'Organizando os dados coletados…');
 
     const userAgent = navigator.userAgent || '';
@@ -54,8 +51,7 @@
     collected.device = {
       manufacturer: platform?.manufacturer || null,
       model: platform?.model || null,
-      serial,
-      hostname
+      serial
     };
     collected.cpu = {
       model: cpu?.modelName || null,
@@ -92,11 +88,11 @@
 
   function render() {
     const device = collected.device;
-    const deviceName = device.model || device.hostname || 'Dispositivo ChromeOS Flex';
+    const deviceName = device.model || 'Dispositivo ChromeOS Flex';
     $('deviceHeading').textContent = deviceName;
     $('deviceFields').innerHTML = [
       rowHtml('Fabricante', device.manufacturer), rowHtml('Modelo', device.model),
-      rowHtml('Número de série', device.serial), rowHtml('Identificação', device.hostname),
+      rowHtml('Número de série', device.serial),
       rowHtml('ChromeOS Flex', collected.chromeos.version), rowHtml('Navegador Chrome', collected.chromeos.browser)
     ].join('');
 
@@ -140,7 +136,6 @@
       ['Dispositivo', 'Fabricante', collected.device.manufacturer],
       ['Dispositivo', 'Modelo', collected.device.model],
       ['Dispositivo', 'Número de série', collected.device.serial],
-      ['Dispositivo', 'Identificação', collected.device.hostname],
       ['ChromeOS Flex', 'Versão', collected.chromeos.version],
       ['ChromeOS Flex', 'Navegador Chrome', collected.chromeos.browser],
       ['Processador', 'Modelo', collected.cpu.model],
@@ -215,7 +210,7 @@
   }
 
   function baseName() {
-    const name = collected.device.serial || collected.device.hostname || 'ChromeOSFlex';
+    const name = collected.device.serial || 'ChromeOSFlex';
     const safe = String(name).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'ChromeOSFlex';
     const stamp = collected.generatedAt.toISOString().replace(/[:.]/g, '-');
     return `ECCOS_${safe}_${stamp}`;
