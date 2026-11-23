@@ -5,7 +5,7 @@
     document.body.classList.add('full-page');
   }
 
-  const collected = { generatedAt: new Date(), device: {}, cpu: {}, memory: {}, storage: [], chromeos: {} };
+  const collected = { generatedAt: new Date(), cpu: {}, memory: {}, storage: [], chromeos: {} };
   const $ = id => document.getElementById(id);
   const showValue = value => value === undefined || value === null || value === '' ? 'Não disponibilizado pelo ChromeOS ou pela política' : String(value);
   const bytes = value => {
@@ -36,23 +36,13 @@
     const cpuPromise = runOptional(() => chrome.system.cpu.getInfo());
     const memoryPromise = runOptional(() => chrome.system.memory.getInfo());
     const storagePromise = runOptional(() => chrome.system.storage.getInfo());
-    const platformPromise = runOptional(() => chrome.enterprise?.hardwarePlatform?.getHardwarePlatformInfo());
-    const [cpu, memory, storage, platform] = await Promise.all([cpuPromise, memoryPromise, storagePromise, platformPromise]);
-    setProgress(62, 'Identificando o dispositivo gerenciado…');
-
-    const attrApi = chrome.enterprise?.deviceAttributes;
-    const serial = await runOptional(() => attrApi?.getDeviceSerialNumber());
+    const [cpu, memory, storage] = await Promise.all([cpuPromise, memoryPromise, storagePromise]);
     setProgress(88, 'Organizando os dados coletados…');
 
     const userAgent = navigator.userAgent || '';
     const osMatch = userAgent.match(/CrOS\s+\S+\s+([\d.]+)/i);
     const chromeMatch = userAgent.match(/Chrome\/([\d.]+)/);
     collected.generatedAt = new Date();
-    collected.device = {
-      manufacturer: platform?.manufacturer || null,
-      model: platform?.model || null,
-      serial
-    };
     collected.cpu = {
       model: cpu?.modelName || null,
       architecture: cpu?.archName || null,
@@ -87,12 +77,8 @@
   }
 
   function render() {
-    const device = collected.device;
-    const deviceName = device.model || 'Dispositivo ChromeOS Flex';
-    $('deviceHeading').textContent = deviceName;
-    $('deviceFields').innerHTML = [
-      rowHtml('Fabricante', device.manufacturer), rowHtml('Modelo', device.model),
-      rowHtml('Número de série', device.serial),
+    $('deviceHeading').textContent = 'Inventário ChromeOS Flex';
+    $('systemFields').innerHTML = [
       rowHtml('ChromeOS Flex', collected.chromeos.version), rowHtml('Navegador Chrome', collected.chromeos.browser)
     ].join('');
 
@@ -115,17 +101,14 @@
       storageRoot.innerHTML = collected.storage.map(disk => `<article class="storage-item"><strong>${escapeHtml(disk.name)}</strong><span>Tipo: ${escapeHtml(disk.type)}<br>Total: ${escapeHtml(showValue(bytes(disk.capacity)))}<br>Espaço livre: ${escapeHtml(disk.free === null ? 'Não disponibilizado nesta versão do Chrome' : bytes(disk.free))}</span></article>`).join('');
     }
 
-    const managedFields = Boolean(device.manufacturer && device.model && device.serial);
     const hardwareAvailable = Boolean(cpu.model || memory.total || collected.storage.length);
     const badge = $('statusBadge');
-    if (managedFields && hardwareAvailable) {
+    if (hardwareAvailable) {
       badge.className = 'badge good'; badge.textContent = 'Coleta concluída';
       $('collectStatus').textContent = 'Informações disponíveis coletadas automaticamente.';
-      $('policyNotice').hidden = true;
     } else {
-      badge.className = 'badge partial'; badge.textContent = hardwareAvailable ? 'Coleta parcial' : 'Política necessária';
-      $('collectStatus').textContent = hardwareAvailable ? 'Dados básicos coletados; a política pode liberar identificação adicional.' : 'A extensão precisa ser implantada pela política da escola para consultar o dispositivo.';
-      $('policyNotice').hidden = false;
+      badge.className = 'badge partial'; badge.textContent = 'Coleta parcial';
+      $('collectStatus').textContent = 'O ChromeOS não disponibilizou dados básicos nesta coleta. Tente novamente.';
     }
   }
 
@@ -133,9 +116,6 @@
     const stamp = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(collected.generatedAt);
     const rows = [
       ['Coleta', 'Data e hora', stamp],
-      ['Dispositivo', 'Fabricante', collected.device.manufacturer],
-      ['Dispositivo', 'Modelo', collected.device.model],
-      ['Dispositivo', 'Número de série', collected.device.serial],
       ['ChromeOS Flex', 'Versão', collected.chromeos.version],
       ['ChromeOS Flex', 'Navegador Chrome', collected.chromeos.browser],
       ['Processador', 'Modelo', collected.cpu.model],
@@ -210,7 +190,7 @@
   }
 
   function baseName() {
-    const name = collected.device.serial || 'ChromeOSFlex';
+    const name = 'ChromeOSFlex';
     const safe = String(name).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'ChromeOSFlex';
     const stamp = collected.generatedAt.toISOString().replace(/[:.]/g, '-');
     return `ECCOS_${safe}_${stamp}`;
@@ -242,7 +222,6 @@
   collect().catch(error => {
     $('statusBadge').className = 'badge partial'; $('statusBadge').textContent = 'Coleta indisponível';
     $('collectStatus').textContent = error?.message || 'O Chrome não liberou os dados do dispositivo.';
-    $('policyNotice').hidden = false;
     toast('Não foi possível coletar os dados neste perfil do Chrome.');
   });
 })();

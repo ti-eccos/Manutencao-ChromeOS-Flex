@@ -7,14 +7,13 @@ DADOS COLETADOS
 - CPU: modelo, arquitetura, núcleos lógicos e temperaturas reportadas, quando disponíveis.
 - Memória física: total, em uso e disponível.
 - Armazenamento interno: unidades fixas, tipo e capacidade total. O espaço livre depende de a versão do Chrome disponibilizar essa API.
-- Com o dispositivo inscrito no gerenciamento escolar: fabricante, modelo e número de série.
 - ChromeOS Flex e versão do navegador.
 
 INSTALAÇÃO PELO ADMIN CONSOLE
 
 O ChromeOS Flex não instala esta extensão abrindo um arquivo do pen drive. A equipe vai hospedar o pacote assinado no GitHub Pages e configurar a instalação pela URL personalizada no Google Admin Console.
 
-Siga o passo a passo em IMPLANTACAO_ADMIN_CONSOLE.md. Para coletar fabricante, modelo e número de série, o dispositivo precisa estar inscrito no gerenciamento escolar; fabricante/modelo também exigem a Enterprise Hardware Platform API habilitada e o número de série exige uma conta técnica afiliada. A chave `.pem` de assinatura deve permanecer guardada pela equipe e nunca pode ir para o GitHub.
+Siga o passo a passo em IMPLANTACAO_ADMIN_CONSOLE.md. A extensão não coleta fabricante, modelo nem número de série; esses dados podem ser consultados manualmente em `chrome://system` quando estiverem disponíveis. A chave `.pem` de assinatura deve permanecer guardada pela equipe e nunca pode ir para o GitHub.
 
 USO
 

@@ -7,13 +7,11 @@ Coletar automaticamente informações expostas pelas APIs oficiais do ChromeOS e
 ## Implantação
 
 - Extensão Manifest V3, auto-hospedada no GitHub Pages e force-installed para a unidade organizacional da equipe de tecnologia pelo Google Admin Console.
-- Dispositivos ChromeOS Flex inscritos no gerenciamento e usuário técnico afiliado para atributos corporativos.
-- A política de dispositivo Enterprise Hardware Platform API deve ser habilitada para acesso ao fabricante e modelo.
+- Os dados coletados nesta versão não exigem inscrição do dispositivo nem APIs corporativas de hardware.
 - O Admin Console instala a extensão pelo URL personalizado do manifesto XML; não instala diretamente o ZIP do pen drive. O fluxo completo está em `IMPLANTACAO_ADMIN_CONSOLE.md`.
 
 ## Dados coletados localmente
 
-- Fabricante, modelo e número de série quando o ChromeOS liberar as APIs corporativas.
 - Versão do ChromeOS Flex e do Chrome.
 - CPU, arquitetura, quantidade de processadores lógicos e sensores de temperatura expostos.
 - Total de RAM e memória disponível/em uso.
@@ -23,7 +21,7 @@ Coletar automaticamente informações expostas pelas APIs oficiais do ChromeOS e
 ## Privacidade e limites
 
 - Sem chamada de rede, conta OAuth ou transmissão dos dados para fora do dispositivo.
-- Número de série e demais atributos ficam somente no relatório local, sob custódia da equipe de tecnologia.
+- Fabricante, modelo e número de série não são coletados pela extensão; consulte-os manualmente em `chrome://system` quando disponíveis.
 - Saúde da bateria, ciclos, SMART e alguns diagnósticos não estão disponíveis na API local; usar o Diagnóstico integrado do ChromeOS para essas verificações.
 - Não executa ações de manutenção, reparo ou alteração de rede.
 - Dados não disponibilizados são indicados como tal, sem preencher valores estimados.

@@ -18,15 +18,10 @@
       <span id="statusBadge" class="badge busy">Coletando</span>
     </section>
 
-    <div id="policyNotice" class="notice" hidden>
-      <strong>Coleta corporativa incompleta</strong>
-      <span>Para ler modelo e número de série, a extensão precisa ser instalada por política no Google Admin Console. O restante dos dados disponíveis continua sendo coletado.</span>
-    </div>
-
     <section class="component-grid" aria-label="Componentes detectados">
       <article class="component-card wide">
-        <div class="card-heading"><span class="card-icon">▦</span><h2>Dispositivo</h2></div>
-        <dl id="deviceFields" class="data-list"></dl>
+        <div class="card-heading"><span class="card-icon">▦</span><h2>Sistema</h2></div>
+        <dl id="systemFields" class="data-list"></dl>
       </article>
       <article class="component-card">
         <div class="card-heading"><span class="card-icon">⌁</span><h2>Processador</h2></div>
@@ -42,6 +37,7 @@
       </article>
       <article class="component-card wide guided">
         <div class="card-heading"><span class="card-icon">◎</span><h2>Verificações do ChromeOS</h2></div>
+        <p>Fabricante, modelo e número de série podem ser consultados manualmente em <strong>chrome://system</strong>, quando o sistema os disponibiliza. A extensão não consegue ler essa página automaticamente.</p>
         <p>O ChromeOS não libera os resultados de todos os testes de bateria e conectividade para uma extensão. Abra <strong>Configurações → Sobre o ChromeOS → Diagnóstico</strong> para executá-los.</p>
         <p class="muted">Esta extensão não altera rede, sistema ou arquivos.</p>
       </article>
@@ -62,4 +58,3 @@
   <script src="popup.js"></script>
 </body>
 </html>
-
