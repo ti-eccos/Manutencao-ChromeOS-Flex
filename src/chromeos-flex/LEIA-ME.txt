@@ -1,0 +1,32 @@
+KIT ECCOS — EXTENSÃO CHROMEOS FLEX
+
+Esta extensão coleta automaticamente os dados que o ChromeOS Flex disponibiliza à extensão. Ela substitui a página manual de preenchimento.
+
+DADOS COLETADOS
+
+- CPU: modelo, arquitetura, núcleos lógicos e temperaturas reportadas, quando disponíveis.
+- Memória física: total, em uso e disponível.
+- Armazenamento interno: unidades fixas, tipo e capacidade total. O espaço livre depende de a versão do Chrome disponibilizar essa API.
+- Com política corporativa: fabricante, modelo, número de série, patrimônio, local cadastrado e nome do dispositivo.
+- ChromeOS Flex e versão do navegador.
+
+INSTALAÇÃO PELO ADMIN CONSOLE
+
+O ChromeOS Flex não instala esta extensão abrindo um arquivo do pen drive. A equipe vai hospedar o pacote assinado no GitHub Pages e configurar a instalação pela URL personalizada no Google Admin Console.
+
+Siga o passo a passo em IMPLANTACAO_ADMIN_CONSOLE.md. Fabricante/modelo exigem também habilitar Enterprise Hardware Platform API nas configurações dos dispositivos. Dados corporativos como serial, patrimônio e local dependem do gerenciamento escolar e da conta técnica afiliada. A chave `.pem` de assinatura deve permanecer guardada pela equipe e nunca pode ir para o GitHub.
+
+USO
+
+1. Abra o ícone da extensão no ChromeOS Flex. A coleta começa automaticamente.
+2. Use o botão de atualização para coletar novamente.
+3. Salve em PDF, XLSX ou Markdown. O PDF usa a impressão do Chrome; os outros formatos são baixados pelo navegador.
+4. Mova os relatórios para a pasta autorizada do USB. A extensão não envia os dados pela internet.
+
+LIMITES
+
+- A API de armazenamento não fornece espaço livre em todas as versões do Chrome. O relatório indica quando esse dado não foi disponibilizado.
+- Saúde da bateria, ciclos, SMART e resultados de alguns testes não são expostos automaticamente à extensão. Use Configurações > Sobre o ChromeOS > Diagnóstico para esses testes.
+- A extensão não executa comandos do Windows, não altera rede e não repara nem modifica o ChromeOS Flex.
+- O pacote não deve ser instalado em Chrome pessoal nem disponibilizado publicamente; seu destino é a equipe autorizada do colégio.
+

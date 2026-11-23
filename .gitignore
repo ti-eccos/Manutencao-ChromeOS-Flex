@@ -1,0 +1,5 @@
+*.pem
+*.key
+**/_publish_work/**
+**/Private_Signing_Keys/**
+

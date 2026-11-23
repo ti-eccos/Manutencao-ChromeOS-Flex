@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kit ECCOS · ChromeOS Flex</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">E</div>
+    <div class="brand-copy"><strong>Kit ECCOS</strong><span>Diagnóstico ChromeOS Flex</span></div>
+    <button id="refresh" class="icon-button" type="button" title="Coletar novamente" aria-label="Coletar novamente">↻</button>
+  </header>
+  <main>
+    <section class="summary">
+      <div class="summary-copy"><span class="eyebrow">Inventário automático</span><h1 id="deviceHeading">Coletando dispositivo…</h1><p id="collectStatus">Consultando as informações liberadas pelo ChromeOS.</p><div class="loading-row"><div class="progress-track"><span id="progressFill"></span></div><span id="progressText">0%</span></div></div>
+      <span id="statusBadge" class="badge busy">Coletando</span>
+    </section>
+
+    <div id="policyNotice" class="notice" hidden>
+      <strong>Coleta corporativa incompleta</strong>
+      <span>Para ler modelo e número de série, a extensão precisa ser instalada por política no Google Admin Console. O restante dos dados disponíveis continua sendo coletado.</span>
+    </div>
+
+    <section class="component-grid" aria-label="Componentes detectados">
+      <article class="component-card wide">
+        <div class="card-heading"><span class="card-icon">▦</span><h2>Dispositivo</h2></div>
+        <dl id="deviceFields" class="data-list"></dl>
+      </article>
+      <article class="component-card">
+        <div class="card-heading"><span class="card-icon">⌁</span><h2>Processador</h2></div>
+        <dl id="cpuFields" class="data-list"></dl>
+      </article>
+      <article class="component-card">
+        <div class="card-heading"><span class="card-icon">▤</span><h2>Memória</h2></div>
+        <dl id="memoryFields" class="data-list"></dl>
+      </article>
+      <article class="component-card wide">
+        <div class="card-heading"><span class="card-icon">▰</span><h2>Armazenamento</h2></div>
+        <div id="storageFields" class="storage-list"></div>
+      </article>
+      <article class="component-card wide guided">
+        <div class="card-heading"><span class="card-icon">◎</span><h2>Verificações do ChromeOS</h2></div>
+        <p>O ChromeOS não libera os resultados de todos os testes de bateria e conectividade para uma extensão. Abra <strong>Configurações → Sobre o ChromeOS → Diagnóstico</strong> para executá-los.</p>
+        <p class="muted">Esta extensão não altera rede, sistema ou arquivos.</p>
+      </article>
+    </section>
+
+    <section class="report-panel">
+      <div><h2>Salvar coleta</h2><p>Os arquivos são gerados localmente para a equipe de tecnologia.</p></div>
+      <div class="report-actions">
+        <button id="savePdf" class="button primary" type="button">PDF</button>
+        <button id="saveXlsx" class="button" type="button">XLSX</button>
+        <button id="saveMarkdown" class="button" type="button">Markdown</button>
+      </div>
+    </section>
+    <p class="footnote">A extensão não envia os dados para a internet. Confira e guarde os relatórios na pasta autorizada do USB.</p>
+  </main>
+  <section id="printReport" class="print-report" aria-hidden="true"></section>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
+
